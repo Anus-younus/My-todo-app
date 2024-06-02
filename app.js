@@ -6,11 +6,19 @@ let bodyEle = document.querySelectorAll('body')[0]
 
 bodyEle.insertBefore(todoDiv,bodyEle.childNodes[4])
 
-console.log(todoDiv);
+let errorMsg = document.querySelectorAll(".error")[0]
 
 function add(){
+    if(inputEle.value === "" || inputEle.value === " "){
+        errorMsg.style.display = "block"
+        setTimeout(function (){
+            errorMsg.style.display = 'none'
+        }, 3000)
+    }
+    else{
     printAllTodos()
     inputEle.value = ""
+   }
 }
 
 
@@ -50,10 +58,18 @@ let todoInput = document.querySelectorAll('#todo-input')[0];
 let getIndex;
 
 function edit(index){
-    todoInput.value = index.parentElement.childNodes[0].nodeValue
     parentTodo.className += " hide"
     childTodo.className = ""
-    getIndex = index
+    if(parentTodo.className === " hide"){
+        todoInput.value = index.parentElement.childNodes[0].nodeValue
+        getIndex = index
+    }
+    else{
+        errorMsg.style.display = "block"
+        setTimeout(function (){
+            errorMsg.style.display = 'none'
+        }, 3000)
+    }
 }
 
 function save(){
